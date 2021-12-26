@@ -32,6 +32,14 @@
                     },
                     "configurations": {
                         "production": {
+                            "optimization": {
+                                "scripts": true,
+                                "styles": {
+                                    "minify": true,
+                                    "inlineCritical": false
+                                },
+                                "fonts": false
+                            },
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -50,7 +58,7 @@
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
-                            "outputHashing": "all"
+                            "outputHashing": "none"
                         },
                         "development": {
                             "buildOptimizer": false,
