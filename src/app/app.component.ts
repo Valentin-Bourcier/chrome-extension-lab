@@ -1,33 +1,38 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import User from "src/entities/user";
+import { UserService } from "../services/user.service";
 @Component({
     selector: "app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit {
-    title = "chrome-extension-lab";
+export class AppComponent implements OnInit, OnDestroy {
+    title = "Chrome extension lab";
 
-    signinForm = new FormGroup({
-        firstname: new FormControl("", [
-            Validators.required,
-            Validators.minLength(2)
-        ]),
-        lastname: new FormControl("", [
-            Validators.required,
-            Validators.minLength(2)
-        ])
-    });
+    constructor(private router: Router, private service: UserService) {}
 
-    get ctrls() {
-        return this.signinForm.controls;
+    userSubscription?: Subscription;
+
+    ngOnInit(): void {
+        this.service
+            .getUser()
+            .then((user) => this.redirect(user))
+            .catch((error) => console.error(error));
+
+        this.userSubscription = this.service.getObservableUser().subscribe((user) => this.redirect(user));
     }
 
-    ngOnInit(): void {}
+    ngOnDestroy(): void {
+        this.userSubscription?.unsubscribe();
+    }
 
-    onSubmit() {
-        const firstname = this.signinForm.value.firstname;
-        const lastname = this.signinForm.value.lastname;
+    redirect(user: User | undefined) {
+        if (user && user.firstname && user.lastname) {
+            this.router.navigate(["welcome"]);
+        } else {
+            this.router.navigate(["signin"]);
+        }
     }
 }

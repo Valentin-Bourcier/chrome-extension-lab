@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "A technical exercise of a chrome extension creation",
     "manifest_version": 2,
-    "permissions": [],
+    "permissions": ["tabs", "activeTab", "storage"],
     "background": {
         "scripts": ["runtime.js"]
     },
