@@ -1,0 +1,77 @@
+#ext-popup {
+    width: 280px;
+    height: 120px;
+
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    /**
+     * Make sure the popup is above everything else.
+     * Can lead to problems when several elements 
+     * should be on top.  
+     */
+    z-index: 2147483647;
+
+    visibility: hidden;
+
+    background-color: whitesmoke;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+}
+
+#ext-popup--message-container {
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ext-popup--message {
+    font-size: large;
+    font-weight: bold;
+}
+
+#ext-popup--message > span {
+    color: rgb(6, 182, 212);
+}
+
+#ext-popup--buttons {
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ext-popup--button-yes,
+#ext-popup--button-no {
+    padding: 4px 12px 4px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+#ext-popup--button-yes {
+    margin-left: 10px;
+    background-color: rgb(59 130 246);
+}
+#ext-popup--button-yes:hover {
+    background-color: rgb(29 78 216);
+}
+
+#ext-popup--button-no {
+    margin-right: 10px;
+    background-color: rgb(239 68 68);
+}
+#ext-popup--button-no:hover {
+    background-color: rgb(185 28 28);
+}
