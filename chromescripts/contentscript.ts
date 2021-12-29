@@ -62,10 +62,10 @@ async function content() {
      * Attaching listeners to the popup buttons.
      */
     const no = document.getElementById("ext-popup--button-no");
-    no?.addEventListener("mouseup", () => hidePopup());
+    no?.addEventListener("click", () => hidePopup());
 
     const yes = document.getElementById("ext-popup--button-yes");
-    yes?.addEventListener("mouseup", () => {
+    yes?.addEventListener("click", () => {
         window.open("https://help.nickelled.com/", "_blank");
         hidePopup();
     });
