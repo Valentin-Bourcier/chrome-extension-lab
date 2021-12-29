@@ -16,11 +16,13 @@ export class AppComponent implements OnInit, OnDestroy {
     userSubscription?: Subscription;
 
     ngOnInit(): void {
+        // On popup opening we check if a user is already connected.
         this.service
             .getUser()
             .then((user) => this.redirect(user))
             .catch((error) => console.error(error));
 
+        // Then we subscribe to every changes on the user data.
         this.userSubscription = this.service.getObservableUser().subscribe((user) => this.redirect(user));
     }
 
@@ -28,6 +30,11 @@ export class AppComponent implements OnInit, OnDestroy {
         this.userSubscription?.unsubscribe();
     }
 
+    /**
+     * Redirects to the signin page if no one is connected, to the welcome page otherwise.
+     *
+     * @param {User | undefined} user The user if it exists, undefined otherwise.
+     */
     redirect(user: User | undefined) {
         if (user && user.firstname && user.lastname) {
             this.router.navigate(["welcome"]);
